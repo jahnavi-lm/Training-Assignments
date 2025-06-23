@@ -1,0 +1,15 @@
+<nav class="navbar">
+    <div class="brand" routerLink="/books">
+      <span class="title">Bookstore</span>
+    </div>
+  
+    <div class="cart-link" *ngIf="(items$ | async) as items">
+      <a routerLink="/cart">
+        🛒 <span>Cart</span>
+        <span class="badge" *ngIf="items.length > 0">
+          {{ items.length }}
+        </span>
+      </a>
+    </div>
+  </nav>
+  

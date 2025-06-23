@@ -1,0 +1,19 @@
+<div class="book-list">
+    <div class="book-card" *ngFor="let book of books$ | async">
+      <img [src]="book.image" alt="{{ book.title }}" />
+      <h3>{{ book.title }}</h3>
+      <p>Price: ₹{{ book.price }}</p>
+      <p>Available: {{ book.available }}</p>
+  
+      <div class="quantity-controls">
+        <button (click)="decreaseQuantity(book)" [disabled]="book.quantity <= 1">-</button>
+        <span>{{ book.quantity }}</span>
+        <button (click)="increaseQuantity(book)" [disabled]="book.quantity >= book.available">+</button>
+      </div>
+  
+      <button (click)="addToCart(book)" [disabled]="book.available === 0">
+        {{ book.available === 0 ? 'Notify Me' : 'Add to Cart' }}
+      </button>
+    </div>
+  </div>
+  

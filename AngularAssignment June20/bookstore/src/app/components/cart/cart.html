@@ -1,0 +1,36 @@
+<div class="cart" *ngIf="(items$ | async) as items">
+    <ng-container *ngIf="items.length > 0; else emptyCart">
+      <h2>Your Cart</h2>
+  
+      <div class="cart-item" *ngFor="let item of items">
+        <img [src]="item.book.image" alt="{{ item.book.title }}" />
+  
+        <div class="cart-details">
+          <h3>{{ item.book.title }}</h3>
+          <p>Price: ₹{{ item.book.price }}</p>
+  
+          <div class="quantity-row">
+            <span>Quantity:</span>
+            <button (click)="decrease(item.book.id)">−</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="increase(item.book.id)" [disabled]="item.book.available <= 0">+</button>
+          </div>
+  
+          <p>Available: {{ item.book.available }}</p>
+          <p>Total: ₹{{ item.totalPrice }}</p>
+          <button (click)="removeItem(item.book.id)">Remove</button>
+        </div>
+      </div>
+  
+      <h3 class="total">Grand Total: ₹{{ total$ | async }}</h3>
+      <button class="checkout" (click)="checkoutCart()">Checkout</button>
+    </ng-container>
+  </div>
+  
+  <ng-template #emptyCart>
+    <div class="empty-message">
+      <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Cart" width="100" />
+      <p>Your cart is empty. Go grab some books!</p>
+    </div>
+  </ng-template>
+  
